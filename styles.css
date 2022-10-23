@@ -1,0 +1,151 @@
+body{
+    margin: 0;
+}
+button{
+    margin: 0;
+}
+h1{
+    font-size: 17px;
+}
+ul{
+    list-style: none;
+    padding: 0;
+}
+h5{
+    margin:0 !important;
+}
+h2,h4{
+    margin:0.5rem 1rem;
+}
+p{
+    margin:3% 5%; 
+}
+.topBar{
+    display: flex;
+    background-color: rgb(9, 9, 158);
+    color: white;
+    justify-content: center;
+    width: 100vw;
+    height: 10vh;
+    align-items: center;
+}
+
+.main-container{
+    display: flex;
+    width: 90vw;
+    margin:auto;
+    padding: 1rem;
+}
+.search-container{
+    flex-grow: 2;
+}
+.search-history{
+    display: flex;
+    flex-direction: column;
+    overflow-y: scroll;
+    height:60vh;
+}
+.search-container li{
+    cursor: pointer;
+    background-color: rgba(189, 183, 183, 0.433);
+    padding: 0.5rem;
+    margin:0.3rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    width: 50%;
+}
+.weather-container{
+    flex-grow: 6;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.searchbox{
+    display: flex;
+}
+.searchbox input{
+    border-radius: 10px 0px 0px 10px;
+    padding: 0.3rem;
+}
+#search-btn{
+    border-radius: 0px 10px 10px 0px;
+}
+
+#error-container{
+    display: none;
+    flex-grow: 6;
+}
+.small-card-container{
+    display: flex;
+    flex-wrap:wrap;
+    justify-content: space-evenly;
+    width: 100%;
+}
+.main-card{
+    width: 30vw;
+    font-size: 17px;
+    border-radius: 20px;
+    padding-bottom: 0.4rem;
+}
+.small-card{
+    width: 22%;
+    height:auto;
+    font-size: 10px;
+    margin:0.3rem;
+    border-radius: 5px;
+}
+.card{
+    color:white;
+    text-align: center;
+    border: 1px solid black;
+    background-color: rgba(14, 25, 88, 0.836);
+}
+.metric-container{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: start;
+    width:90%;
+    margin: auto;
+    
+}
+
+.metric{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 90%
+}
+
+
+.icon-img{
+    width:30%;
+    height: 30%;
+    margin-top: 3%;
+    margin-bottom: 3%;
+}
+
+@media only screen and (max-width: 600px) {
+    .main-container{
+        display: block !important;
+    }
+    .main-card{
+        width:70vw;
+    }
+    .small-card{
+        width:30vw;
+        height: auto;
+    }
+    .search-container{
+        text-align: center;
+    }
+    .searchbox{
+        justify-content: center;
+    }
+    .search-history{
+        align-items: center;
+        height: 30vh;
+    }
+}
