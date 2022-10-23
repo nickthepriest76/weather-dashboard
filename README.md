@@ -6,5 +6,5 @@ This Weather Dashboard App is built with HTML, CSS , JavaScript and JQuery. It u
 
 
 ## Links
-- Repository Link :
-- Deployment Link :
+- Repository Link : https://github.com/nickthepriest76/weather-dashboard
+- Deployment Link : https://nickthepriest76.github.io/weather-dashboard/
