@@ -24,8 +24,10 @@ async function getWeather(cityName) {
     
     if (res.ok) {
         const data = await res.json();
+        const timezone = data.city.timezone;
         const dataList = data.list;
         const dailyReport = []
+        dailyReport.push(timezone)
         for (let i = 0; i < dataList.length; i = i + 8) { 
             dailyReport.push(dataList[i]);
         }
@@ -72,29 +74,24 @@ function getHTMLCardfromData({ type,date,iconUrl, temp, wind, humidity } = {}) {
     return template;
 }
 
-
-function getDateString(date) {
-    const dt = new Date(date*1000);
-    return dt.toLocaleDateString();
-} 
-
-
-function getWeatherObject(data) {
+function getLocalDate(offset, currentTime) {
+    const time = new Date(currentTime * 1000 + offset * 1000).toLocaleDateString().slice(0, 10);
+    return time;
+}
+function getWeatherObject(timezone, data) {
     const obj = {
-        date: getDateString(data.dt),
+        date: getLocalDate(timezone,data.dt),
         temp: data.main.temp,
         humidity: data.main.humidity,
         wind: data.wind.speed,
         iconUrl:"https://openweathermap.org/img/wn/"+data.weather[0].icon+"@2x.png"
     }
-
     return obj;
 }
 
 function renderWeather(cityName) {
 
     getWeather(cityName).then((data) => {
-        console.log("api fetched");
         $("#search-box").val("");
         addtoSearchHistory(cityName);
         $("#error-container").css("display", "none");
@@ -102,16 +99,17 @@ function renderWeather(cityName) {
         $(".card").remove();
         $("#cityName").html(cityName);
         $("#future-text").html("5 Day Forecast");
-        const currData = getWeatherObject(data[0]);
+        const timezone = data[0];
+        const currData = getWeatherObject(timezone,data[1]);
         renderMainWeatherCard(currData)
-        for (let i = 1; i < data.length; i++){
-            const futureData = getWeatherObject(data[i]);
+        for (let i = 2; i < data.length; i++){
+            const futureData = getWeatherObject(timezone,data[i]);
             const smallCard = getSmallWeatherCard(futureData);
             $("#future").append(smallCard)
         }
         
     }).catch(err => {
-        console.log(err);
+        console.error(err);
         $("#error-container").css("display", "inherit");
         $("#weather-display-container").css("display", "none");
     })
@@ -133,7 +131,6 @@ function getSmallWeatherCard(weatherObject) {
 
 
 function addtoSearchHistory(item) {
-    console.log(searchHistory);
     if (searchHistory.includes(item) == false) {
         searchHistory.unshift(item)
         localStorage.setItem("cityHistory", JSON.stringify(searchHistory));
@@ -152,14 +149,12 @@ function addClicktosearch() {
     const searchItems = document.querySelectorAll(".search-item");
     searchItems.forEach((item) => {
     item.addEventListener('click', () => {
-        console.log("clicked");
         renderWeather(item.innerText);
     })
 })
 }
 
 renderHistory(searchHistory);
-console.log("rendered search history");
 addClicktosearch();
 
 
